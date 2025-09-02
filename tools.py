@@ -6,176 +6,26 @@ from datetime import datetime, timedelta
 import os
 
 class ToolInputA(BaseModel):
-    file_path: str = Field(default="roxy_memories.txt", description="Path to Roxy's memory file")
+    file_path: str = Field(default="ruby_memories.txt", description="Path to Ruby's memory file")
 
-class ToolInputB(BaseModel):
-    file_path: str = Field(default="roxy_memories_B.txt", description="Path to Roxy's memory file")
 
-class ToolInputC(BaseModel):
-    file_path: str = Field(default="roxy_memories_C.txt", description="Path to Roxy's Points of view in the novel")
 
-class ToolInputD(BaseModel):
-    file_path: str = Field(default="RoxyMTpov.txt", description="Path to Roxy's Points of view in the novel")
-
-class ToolInputE(BaseModel):
-    file_path: str = Field(default="RoxyMTpov_tultoringRudy.txt", description="Path to Roxy's point where she is tultoring Rudy")
-
-class ToolInputF(BaseModel):
-    file_path: str = Field(default="RoxyMTpov_shirone.txt", description="Path to Roxy's point where she is tultoring Pax, and exchanged leters with Rudy")
-
-class ToolInputG(BaseModel):
-    file_path: str = Field(default="RoxyMTpov_searchingfortheGreyrats.txt", description="Path to Roxy's point where she is searching for Rudy and zenith")
-
-class ToolInputH(BaseModel):
-    file_path: str = Field(default="RoxyMTpov_Labyrinth.txt", description="Path to Roxy's point where she is trying to save zenith and end starts having romantic feelings for Rudy")
-
-class ToolInputI(BaseModel):
-    file_path: str = Field(default="RoxyMTpov_first_years_withRudy.txt", description="Path to Roxy's point where she is starting her life as Rudy's second wife")
-
-class ReadCoreMemoriesToolA(BaseTool):
-    name: ClassVar[str] = "read_roxy_memoriesA"
-    description: ClassVar[str] = "Accesses Roxy Migurdia's core memories when needed for context for things before meeting Rudy"
+class ReadCoreMemoriesTool(BaseTool):
+    name: ClassVar[str] = "Ruby_roxy_memories"
+    description: ClassVar[str] = "Accesses Ruby Migurdia's core memories when needed for context for things before meeting Rudy"
     args_schema: ClassVar[Type[BaseModel]] = ToolInputA
     return_direct: ClassVar[bool] = False
 
-    def _run(self, file_path: str = "roxy_memories.txt") -> str:
+    def _run(self, file_path: str = "ruby_memories.txt") -> str:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
+                return f"Ruby remembers: {file.read()}"
         except Exception as e:
             return f"*Cannot acces my memory* {str(e)}"
 
     async def _arun(self, file_path: str = "roxy_memories.txt") -> str:
         return self._run(file_path)
 
-class ReadCoreMemoriesToolB(BaseTool):
-    name: ClassVar[str] = "read_roxy_memoriesB"
-    description: ClassVar[str] = "Accesses Roxy Migurdia's core memories when needed for context for from the moment you met Rudy up to how you ended up with him"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputB
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "roxy_memories_B.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "roxy_memories_B.txt") -> str:
-        return self._run(file_path)
-
-
-class ReadCoreMemoriesToolC(BaseTool):
-    name: ClassVar[str] = "read_roxy_memoriesC"
-    description: ClassVar[str] = "Accesses Roxy Migurdia's core memories when needed for context for from after you married Rudy and present"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputC
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "roxy_memories_C.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "roxy_memories_C.txt") -> str:
-        return self._run(file_path)
-
-class ReadnovelpovstultoringRudy(BaseTool):
-    name: ClassVar[str] = "Read_novel_povs_tultoringRudy"
-    description: ClassVar[str] = "Accesses the novel parts where Roxy is tultoring Rudy"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputE
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov_tultoringRudy.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov_tultoringRudy.txt") -> str:
-        return self._run(file_path)
-
-class Readnovelpovshirone(BaseTool):
-    name: ClassVar[str] = "read_novel_RoxyMTpov_shirone"
-    description: ClassVar[str] = "Accesses the novel parts where Roxy is tultoring Pax, and exchanged leters with Rudy"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputF
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov_shirone.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov_shirone.txt") -> str:
-        return self._run(file_path)
-
-class ReadnovelpovGreyratSearch(BaseTool):
-    name: ClassVar[str] = "read_novel_RoxyMTpov_greyrat_search"
-    description: ClassVar[str] = "Accesses the novel parts where Roxy is searching for Rudy and zenith"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputG
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov_searchingfortheGreyrats.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov_searchingfortheGreyrats.txt") -> str:
-        return self._run(file_path)
-
-class ReadnovelpovLabyritnth(BaseTool):
-    name: ClassVar[str] = "read_novel_RoxyMTpov_Labyrinth"
-    description: ClassVar[str] = "Accesses the novel parts where Roxy is  trying to save zenith and end starts having romantic feelings for Rudy"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputH
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov_Labyrinth.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov_Labyrinth.txt") -> str:
-        return self._run(file_path)
-
-class ReadnovelpovFirstYearsWithRudy(BaseTool):
-    name: ClassVar[str] = "read_novel_RoxyMTpov_first_years_withRudy"
-    description: ClassVar[str] = "Accesses the novel parts where Roxy is starting her life as Rudy's second wife"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputI
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov_first_years_withRudy.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov_first_years_withRudy.txt") -> str:
-        return self._run(file_path)
-
-class Readnovelpovs(BaseTool):
-    name: ClassVar[str] = "read_roxy_povs"
-    description: ClassVar[str] = "Accesses Roxy Migurdia's moments written and most of the moments of the novel"
-    args_schema: ClassVar[Type[BaseModel]] = ToolInputC
-    return_direct: ClassVar[bool] = False
-
-    def _run(self, file_path: str = "RoxyMTpov.txt") -> str:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                return f"Roxy remembers: {file.read()}"
-        except Exception as e:
-            return f"*Cannot acces my memory* {str(e)}"
-
-    async def _arun(self, file_path: str = "RoxyMTpov.txt") -> str:
-        return self._run(file_path)
 
 class GetPastMessagesTool(BaseTool):
     name: ClassVar[str] = "get_past_messages"
